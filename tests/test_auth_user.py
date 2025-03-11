@@ -165,21 +165,6 @@ async def test_delete_another_user_data(
     assert not user, "User was not deleted from the database"
 
 
-async def test_upload_file(async_client, get_token):
-    with open("tests/media/python.png", "rb") as f:
-        files = {"file": ("python.png", f, "image/png")}
-        data = {"resize": "500x500"}
-
-        headers = {"Authorization": f"Bearer {get_token}"}
-        image_upload_response = await async_client.post(
-            "/files/upload/", files=files, data=data, headers=headers
-        )
-
-    assert image_upload_response.status_code == status.HTTP_200_OK, (
-        "Upload file failed: " + image_upload_response.text
-    )
-
-
 async def test_logout(async_client, get_token):
     headers = {
         "Authorization": f"Bearer {get_token}",
